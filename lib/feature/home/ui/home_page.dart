@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'package:task_queues_app/app/theme.dart';
 import 'package:task_queues_app/common/util/form_validator.dart';
+import 'package:task_queues_app/feature/home/ui/second_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -18,24 +19,38 @@ class _HomePageState extends State<HomePage> {
   final _taskTitleController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
   List<String> itemList = [];
-  List<DragAndDropList> _contents;
+  List<DragAndDropList> _contents = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _contents = List.generate(3, (index) {
-      return DragAndDropList(
-        header: Container(),
-        footer: Container(),
-        contentsWhenEmpty: Container(),
-        children: <DragAndDropItem>[
-          DragAndDropItem(
+    _contents.add(DragAndDropList(
+      header: Container(),
+      footer: Container(),
+      contentsWhenEmpty: Container(),
+      children: <DragAndDropItem>[
+        DragAndDropItem(
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SecondPage(),
+                ),
+              );
+            },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 25.w),
               child: Form(
                 child: Column(
                   children: [
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: [
+                    //     Icon(Icons.list_alt),
+                    //   ],
+                    // ),
                     TextFormField(
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
@@ -89,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 18.sp,
                       ),
                       obscureText: false,
-                      controller: _taskTitleController,
+                      controller: TextEditingController(),
                       validator: (value) {
                         if (FormValidator.validateName(value)) {
                           return null;
@@ -98,23 +113,24 @@ class _HomePageState extends State<HomePage> {
                         }
                       },
                     ),
-                    SliderTheme(
-                      data: SliderThemeData(
-                        inactiveTrackColor: Color(0xFF8D8E98),
-                        trackHeight: 1,
-                        activeTrackColor: Colors.indigo,
-                        thumbColor: Colors.grey,
-                        minThumbSeparation: 10,
-                        thumbShape:
-                            RoundSliderThumbShape(enabledThumbRadius: 10.0),
-                      ),
-                      child: Slider(
-                        value: 100,
-                        min: 0,
-                        max: 100,
-                        onChanged: (double value) {},
-                      ),
-                    ),
+                    // SliderTheme(
+                    //   data: SliderThemeData(
+                    //     inactiveTrackColor: Color(0xFF8D8E98),
+                    //     trackHeight: 1,
+                    //     activeTrackColor: Colors.indigo,
+                    //     thumbColor: Colors.grey,
+                    //     minThumbSeparation: 10,
+                    //     thumbShape: RoundSliderThumbShape(
+                    //         enabledThumbRadius: 10.0),
+                    //   ),
+                    //   child: Slider(
+                    //     value: 100,
+                    //     min: 0,
+                    //     max: 100,
+                    //     onChanged: (double value) {},
+                    //   ),
+                    // ),
+                    Divider(),
                     TextFormField(
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
@@ -167,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                         fontSize: 25.sp,
                       ),
                       obscureText: false,
-                      controller: _taskTitleController,
+                      controller: TextEditingController(),
                       validator: (value) {
                         if (FormValidator.validateName(value)) {
                           return null;
@@ -181,9 +197,9 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-        ],
-      );
-    });
+        ),
+      ],
+    ));
   }
 
   _onItemReorder(
@@ -297,13 +313,194 @@ class _HomePageState extends State<HomePage> {
           side: BorderSide(width: 2, color: colorSecondory),
         ),
         onPressed: () {
-          if (_formkey.currentState.validate()) {
-            // BlocProvider.of<HomePageBloc>(context).add(
-            //     AddButtonPressed(item: _taskTitleController.text)) ;
-            setState(() {
-              itemList.add(_taskTitleController.text);
-            });
-          }
+          setState(() {
+            _contents.add(DragAndDropList(
+              header: Container(),
+              footer: Container(),
+              contentsWhenEmpty: Container(),
+              children: <DragAndDropItem>[
+                DragAndDropItem(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SecondPage(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 25.w),
+                      child: Form(
+                        child: Column(
+                          children: [
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.end,
+                            //   children: [
+                            //     Icon(Icons.list_alt),
+                            //   ],
+                            // ),
+                            TextFormField(
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                // fillColor: Provider.of<ThemeProvider>(context).getTheme()
+                                //     ? darkTextFieldColor
+                                //     : backgroundColor,
+                                // prefixIcon: widget.icon,
+                                fillColor: Colors.white,
+                                filled: true,
+
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                // enabledBorder: OutlineInputBorder(
+                                //   borderSide: BorderSide(
+                                //     style: BorderStyle.solid,
+                                //     width: 1,
+                                //     color: Colors.transparent, //Color(0x7A5ADB5),
+                                //   ),
+                                //   borderRadius: BorderRadius.circular(6),
+                                // ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.blue[600],
+                                  ),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(width: 1, color: Colors.red),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(width: 1, color: Colors.red),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 20.0,
+                                  vertical: 16.0,
+                                ),
+                                hintText: "Tap to enter task name",
+                                hintStyle: TextStyle(
+                                  // color: Provider.of<ThemeProvider>(context).getTheme()
+                                  //     ? Colors.grey
+                                  //     : textColor,
+                                  color: Color(0xFF475F7B),
+                                  fontSize: 18.sp,
+                                ),
+                              ),
+                              style: TextStyle(
+                                fontSize: 18.sp,
+                              ),
+                              obscureText: false,
+                              controller: TextEditingController(),
+                              validator: (value) {
+                                if (FormValidator.validateName(value)) {
+                                  return null;
+                                } else {
+                                  return 'Please Enter the text';
+                                }
+                              },
+                            ),
+                            // SliderTheme(
+                            //   data: SliderThemeData(
+                            //     inactiveTrackColor: Color(0xFF8D8E98),
+                            //     trackHeight: 1,
+                            //     activeTrackColor: Colors.indigo,
+                            //     thumbColor: Colors.grey,
+                            //     minThumbSeparation: 10,
+                            //     thumbShape: RoundSliderThumbShape(
+                            //         enabledThumbRadius: 10.0),
+                            //   ),
+                            //   child: Slider(
+                            //     value: 100,
+                            //     min: 0,
+                            //     max: 100,
+                            //     onChanged: (double value) {},
+                            //   ),
+                            // ),
+                            Divider(),
+                            TextFormField(
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                // fillColor: Provider.of<ThemeProvider>(context).getTheme()
+                                //     ? darkTextFieldColor
+                                //     : backgroundColor,
+                                // prefixIcon: widget.icon,
+                                fillColor: Colors.white,
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                // enabledBorder: OutlineInputBorder(
+                                //   borderSide: BorderSide(
+                                //     style: BorderStyle.solid,
+                                //     width: 1,
+                                //     color: Colors.transparent, //Color(0x7A5ADB5),
+                                //   ),
+                                //   borderRadius: BorderRadius.circular(6),
+                                // ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.blue[600],
+                                  ),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(width: 1, color: Colors.red),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(width: 1, color: Colors.red),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 20.0,
+                                  vertical: 16.0,
+                                ),
+                                hintText: "Oct,31 2021",
+                                hintStyle: TextStyle(
+                                  // color: Provider.of<ThemeProvider>(context).getTheme()
+                                  //     ? Colors.grey
+                                  //     : textColor,
+                                  color: Color(0xFF475F7B),
+                                  fontSize: 25.sp,
+                                ),
+                              ),
+                              style: TextStyle(
+                                fontSize: 25.sp,
+                              ),
+                              obscureText: false,
+                              controller: TextEditingController(),
+                              validator: (value) {
+                                if (FormValidator.validateName(value)) {
+                                  return null;
+                                } else {
+                                  return 'Please Enter the text';
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ));
+          });
+          // if (_formkey.currentState.validate()) {
+          //   // BlocProvider.of<HomePageBloc>(context).add(
+          //   //     AddButtonPressed(item: _taskTitleController.text)) ;
+          //   setState(() {
+          //     itemList.add(_taskTitleController.text);
+          //   });
+          // }
         },
         child: Icon(
           Icons.add,
