@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 
 final ThemeData basicTheme = _buildBasicTheme();
 
+const colorPrimary = Color(0xFF282828);
+const colorSecondory = Color(0xFF8193CE);
+
 TextTheme _buildTextTheme(TextTheme base) {
   return base.copyWith(
-    title: base.title.copyWith(
-      fontFamily: 'GoogleSans',
+    headline1: base.headline4.copyWith(
+      fontWeight: FontWeight.w400,
+      fontFamily: "Poppins-Regular",
+      color: colorPrimary,
     ),
   );
 }

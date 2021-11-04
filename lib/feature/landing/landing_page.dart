@@ -1,15 +1,12 @@
-import 'package:engage_app/feature/dashboard/ui/screens/dashboard_screen.dart';
-import 'package:engage_app/feature/signin_signup/ui/screen/sign_in_page.dart';
+import 'package:task_queues_app/feature/home/ui/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:engage_app/common/constant/env.dart';
-import 'package:engage_app/common/http/api_provider.dart';
-import 'package:engage_app/common/util/internet_check.dart';
-import 'package:engage_app/common/widget/loading_widget.dart';
-import 'package:engage_app/feature/authentication/bloc/index.dart';
-import 'package:engage_app/feature/home/ui/screen/home_page.dart';
-import 'package:engage_app/feature/landing/splash_page.dart';
-import 'package:engage_app/feature/signin_signup/resources/auth_repository.dart';
+import 'package:task_queues_app/common/constant/env.dart';
+import 'package:task_queues_app/common/http/api_provider.dart';
+import 'package:task_queues_app/common/util/internet_check.dart';
+import 'package:task_queues_app/common/widget/loading_widget.dart';
+import 'package:task_queues_app/feature/authentication/bloc/index.dart';
+import 'package:task_queues_app/feature/landing/splash_page.dart';
 import 'package:flutter_screenutil/screen_util.dart';
 
 class LandingPage extends StatelessWidget {
@@ -31,19 +28,20 @@ class LandingPage extends StatelessWidget {
           }
 
           if (state is AuthenticationAuthenticated) {
-            return Dashboard();
+            return HomePage();
           }
           if (state is AuthenticationUnauthenticated) {
-            return SignInPage(
-                authRepository: AuthRepository(
-                    env: RepositoryProvider.of<Env>(context),
-                    apiProvider: RepositoryProvider.of<ApiProvider>(context),
-                    internetCheck:
-                        RepositoryProvider.of<InternetCheck>(context)));
+            return HomePage();
+              // SignInPage(
+              //   authRepository: AuthRepository(
+              //       env: RepositoryProvider.of<Env>(context),
+              //       apiProvider: RepositoryProvider.of<ApiProvider>(context),
+              //       internetCheck:
+              //           RepositoryProvider.of<InternetCheck>(context)));
             // return LoginScreen();
           }
 
-          return SplashPage();
+          return HomePage();
         });
   }
 }

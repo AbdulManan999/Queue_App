@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:engage_app/generated/l10n.dart';
+import 'package:task_queues_app/generated/l10n.dart';
 
 class WidgetError extends StatelessWidget {
   final bool visible;

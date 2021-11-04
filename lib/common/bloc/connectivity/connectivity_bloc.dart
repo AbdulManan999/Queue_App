@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:connectivity/connectivity.dart';
-import 'package:engage_app/common/bloc/connectivity/connectivity_event.dart';
-import 'package:engage_app/common/bloc/connectivity/connectivity_state.dart';
+import 'package:task_queues_app/common/bloc/connectivity/connectivity_event.dart';
+import 'package:task_queues_app/common/bloc/connectivity/connectivity_state.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {

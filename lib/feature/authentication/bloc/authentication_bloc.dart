@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:engage_app/feature/authentication/resource/user_repository.dart';
+import 'package:task_queues_app/feature/authentication/resource/user_repository.dart';
 import 'package:meta/meta.dart';
 
 import 'authentication_event.dart';

@@ -1,4 +1,4 @@
-package com.AMI.engage_app
+package com.AMI.task_queues_app
 
 import io.flutter.embedding.android.FlutterActivity
 

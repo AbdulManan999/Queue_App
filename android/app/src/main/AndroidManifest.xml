@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.AMI.engage_app">
+    package="com.AMI.task_queues_app">
    <application
-        android:label="Engage App"
+        android:label="Task Queues App"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
