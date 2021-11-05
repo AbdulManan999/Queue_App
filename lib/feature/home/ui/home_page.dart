@@ -25,181 +25,8 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _contents.add(DragAndDropList(
-      header: Container(),
-      footer: Container(),
-      contentsWhenEmpty: Container(),
-      children: <DragAndDropItem>[
-        DragAndDropItem(
-          child: InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SecondPage(),
-                ),
-              );
-            },
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 25.w),
-              child: Form(
-                child: Column(
-                  children: [
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.end,
-                    //   children: [
-                    //     Icon(Icons.list_alt),
-                    //   ],
-                    // ),
-                    TextFormField(
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        // fillColor: Provider.of<ThemeProvider>(context).getTheme()
-                        //     ? darkTextFieldColor
-                        //     : backgroundColor,
-                        // prefixIcon: widget.icon,
-                        fillColor: Colors.white,
-                        filled: true,
+    _dragDropWidget();
 
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        // enabledBorder: OutlineInputBorder(
-                        //   borderSide: BorderSide(
-                        //     style: BorderStyle.solid,
-                        //     width: 1,
-                        //     color: Colors.transparent, //Color(0x7A5ADB5),
-                        //   ),
-                        //   borderRadius: BorderRadius.circular(6),
-                        // ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.blue[600],
-                          ),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Colors.red),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Colors.red),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 20.0,
-                          vertical: 16.0,
-                        ),
-                        hintText: "Tap to enter task name",
-                        hintStyle: TextStyle(
-                          // color: Provider.of<ThemeProvider>(context).getTheme()
-                          //     ? Colors.grey
-                          //     : textColor,
-                          color: Color(0xFF475F7B),
-                          fontSize: 18.sp,
-                        ),
-                      ),
-                      style: TextStyle(
-                        fontSize: 18.sp,
-                      ),
-                      obscureText: false,
-                      controller: TextEditingController(),
-                      validator: (value) {
-                        if (FormValidator.validateName(value)) {
-                          return null;
-                        } else {
-                          return 'Please Enter the text';
-                        }
-                      },
-                    ),
-                    // SliderTheme(
-                    //   data: SliderThemeData(
-                    //     inactiveTrackColor: Color(0xFF8D8E98),
-                    //     trackHeight: 1,
-                    //     activeTrackColor: Colors.indigo,
-                    //     thumbColor: Colors.grey,
-                    //     minThumbSeparation: 10,
-                    //     thumbShape: RoundSliderThumbShape(
-                    //         enabledThumbRadius: 10.0),
-                    //   ),
-                    //   child: Slider(
-                    //     value: 100,
-                    //     min: 0,
-                    //     max: 100,
-                    //     onChanged: (double value) {},
-                    //   ),
-                    // ),
-                    Divider(),
-                    TextFormField(
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        // fillColor: Provider.of<ThemeProvider>(context).getTheme()
-                        //     ? darkTextFieldColor
-                        //     : backgroundColor,
-                        // prefixIcon: widget.icon,
-                        fillColor: Colors.white,
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        // enabledBorder: OutlineInputBorder(
-                        //   borderSide: BorderSide(
-                        //     style: BorderStyle.solid,
-                        //     width: 1,
-                        //     color: Colors.transparent, //Color(0x7A5ADB5),
-                        //   ),
-                        //   borderRadius: BorderRadius.circular(6),
-                        // ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.blue[600],
-                          ),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Colors.red),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Colors.red),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: 20.0,
-                          vertical: 16.0,
-                        ),
-                        hintText: "Oct,31 2021",
-                        hintStyle: TextStyle(
-                          // color: Provider.of<ThemeProvider>(context).getTheme()
-                          //     ? Colors.grey
-                          //     : textColor,
-                          color: Color(0xFF475F7B),
-                          fontSize: 25.sp,
-                        ),
-                      ),
-                      style: TextStyle(
-                        fontSize: 25.sp,
-                      ),
-                      obscureText: false,
-                      controller: TextEditingController(),
-                      validator: (value) {
-                        if (FormValidator.validateName(value)) {
-                          return null;
-                        } else {
-                          return 'Please Enter the text';
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    ));
   }
 
   _onItemReorder(
@@ -248,10 +75,10 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          width: MediaQuery.of(context).size.width * 1,
-          color: Colors.white,
+      body: Container(
+        width: MediaQuery.of(context).size.width * 1,
+        color: Colors.white,
+        child: SingleChildScrollView(
           child: Column(
             children: [
               Container(
@@ -267,6 +94,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Container(
+                // height: MediaQuery.of(context).size.height *0.2,
+                color: Colors.orange,
                 child: DragAndDropLists(
                   disableScrolling: true,
                   children: _contents,
@@ -295,6 +124,9 @@ class _HomePageState extends State<HomePage> {
               //   // onListReorder: onReorderList,
               // ),
               // ),
+              SizedBox(
+                height: 20,
+              ),
               _addButton(context),
             ],
           ),
@@ -305,6 +137,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _addButton(BuildContext context) {
     return Container(
+      // margin: EdgeInsets.only(top: 20),
       width: 140,
       height: 54,
       child: OutlinedButton(
@@ -314,185 +147,7 @@ class _HomePageState extends State<HomePage> {
         ),
         onPressed: () {
           setState(() {
-            _contents.add(DragAndDropList(
-              header: Container(),
-              footer: Container(),
-              contentsWhenEmpty: Container(),
-              children: <DragAndDropItem>[
-                DragAndDropItem(
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SecondPage(),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 25.w),
-                      child: Form(
-                        child: Column(
-                          children: [
-                            // Row(
-                            //   mainAxisAlignment: MainAxisAlignment.end,
-                            //   children: [
-                            //     Icon(Icons.list_alt),
-                            //   ],
-                            // ),
-                            TextFormField(
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                // fillColor: Provider.of<ThemeProvider>(context).getTheme()
-                                //     ? darkTextFieldColor
-                                //     : backgroundColor,
-                                // prefixIcon: widget.icon,
-                                fillColor: Colors.white,
-                                filled: true,
-
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                // enabledBorder: OutlineInputBorder(
-                                //   borderSide: BorderSide(
-                                //     style: BorderStyle.solid,
-                                //     width: 1,
-                                //     color: Colors.transparent, //Color(0x7A5ADB5),
-                                //   ),
-                                //   borderRadius: BorderRadius.circular(6),
-                                // ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.blue[600],
-                                  ),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(width: 1, color: Colors.red),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(width: 1, color: Colors.red),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 20.0,
-                                  vertical: 16.0,
-                                ),
-                                hintText: "Tap to enter task name",
-                                hintStyle: TextStyle(
-                                  // color: Provider.of<ThemeProvider>(context).getTheme()
-                                  //     ? Colors.grey
-                                  //     : textColor,
-                                  color: Color(0xFF475F7B),
-                                  fontSize: 18.sp,
-                                ),
-                              ),
-                              style: TextStyle(
-                                fontSize: 18.sp,
-                              ),
-                              obscureText: false,
-                              controller: TextEditingController(),
-                              validator: (value) {
-                                if (FormValidator.validateName(value)) {
-                                  return null;
-                                } else {
-                                  return 'Please Enter the text';
-                                }
-                              },
-                            ),
-                            // SliderTheme(
-                            //   data: SliderThemeData(
-                            //     inactiveTrackColor: Color(0xFF8D8E98),
-                            //     trackHeight: 1,
-                            //     activeTrackColor: Colors.indigo,
-                            //     thumbColor: Colors.grey,
-                            //     minThumbSeparation: 10,
-                            //     thumbShape: RoundSliderThumbShape(
-                            //         enabledThumbRadius: 10.0),
-                            //   ),
-                            //   child: Slider(
-                            //     value: 100,
-                            //     min: 0,
-                            //     max: 100,
-                            //     onChanged: (double value) {},
-                            //   ),
-                            // ),
-                            Divider(),
-                            TextFormField(
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                // fillColor: Provider.of<ThemeProvider>(context).getTheme()
-                                //     ? darkTextFieldColor
-                                //     : backgroundColor,
-                                // prefixIcon: widget.icon,
-                                fillColor: Colors.white,
-                                filled: true,
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                // enabledBorder: OutlineInputBorder(
-                                //   borderSide: BorderSide(
-                                //     style: BorderStyle.solid,
-                                //     width: 1,
-                                //     color: Colors.transparent, //Color(0x7A5ADB5),
-                                //   ),
-                                //   borderRadius: BorderRadius.circular(6),
-                                // ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Colors.blue[600],
-                                  ),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(width: 1, color: Colors.red),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(width: 1, color: Colors.red),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 20.0,
-                                  vertical: 16.0,
-                                ),
-                                hintText: "Oct,31 2021",
-                                hintStyle: TextStyle(
-                                  // color: Provider.of<ThemeProvider>(context).getTheme()
-                                  //     ? Colors.grey
-                                  //     : textColor,
-                                  color: Color(0xFF475F7B),
-                                  fontSize: 25.sp,
-                                ),
-                              ),
-                              style: TextStyle(
-                                fontSize: 25.sp,
-                              ),
-                              obscureText: false,
-                              controller: TextEditingController(),
-                              validator: (value) {
-                                if (FormValidator.validateName(value)) {
-                                  return null;
-                                } else {
-                                  return 'Please Enter the text';
-                                }
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ));
+            _dragDropWidget();
           });
           // if (_formkey.currentState.validate()) {
           //   // BlocProvider.of<HomePageBloc>(context).add(
@@ -508,6 +163,114 @@ class _HomePageState extends State<HomePage> {
           color: colorSecondory,
         ),
       ),
+    );
+  }
+
+
+  void _dragDropWidget() {
+    _contents.add(DragAndDropList(
+      // header: Container(),
+      footer: Text("Oct,31 2021"),
+      // contentsWhenEmpty: Container(),
+      children: <DragAndDropItem>[
+        DragAndDropItem(
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SecondPage(),
+                ),
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.only(top: 20.h , left: 20.w, right: 20.w),
+              child: Form(
+                child: Column(
+                  children: [
+                    TextFormField(
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                    // fillColor: Provider.of<ThemeProvider>(context).getTheme()
+                    //     ? darkTextFieldColor
+                    //     : backgroundColor,
+                    // prefixIcon: widget.icon,
+                    //     suffixIcon: ,
+                    suffix: GestureDetector(
+                      // onLongPress: Dra,
+                      child: Icon(Icons.menu),),
+                    fillColor: Colors.white,
+                    filled: true,
+
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    // enabledBorder: OutlineInputBorder(
+                    //   borderSide: BorderSide(
+                    //     style: BorderStyle.solid,
+                    //     width: 1,
+                    //     color: Colors.transparent, //Color(0x7A5ADB5),
+                    //   ),
+                    //   borderRadius: BorderRadius.circular(6),
+                    // ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.blue[600],
+                      ),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(width: 1, color: Colors.red),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(width: 1, color: Colors.red),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                      vertical: 16.0,
+                    ),
+                    hintText: "Tap to enter task name",
+                    hintStyle: TextStyle(
+                      // color: Provider.of<ThemeProvider>(context).getTheme()
+                      //     ? Colors.grey
+                      //     : textColor,
+                      color: Color(0xFF475F7B),
+                      fontSize: 18.sp,
+                    ),
+                      ),
+                      style: TextStyle(
+                    fontSize: 18.sp,
+                      ),
+                      obscureText: false,
+                      controller: TextEditingController(),
+                      validator: (value) {
+                    if (FormValidator.validateName(value)) {
+                      return null;
+                    } else {
+                      return 'Please Enter the text';
+                    }
+                      },
+                  ),
+                  // IconButton(
+                  //     onPressed: (){
+                  //       Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //           builder: (context) => SecondPage(),
+                  //         ),
+                  //       );
+                  //     }, icon: Icon(Icons.menu)),
+                  ]
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    )
     );
   }
 
