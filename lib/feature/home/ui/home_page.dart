@@ -17,15 +17,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _taskTitleController = TextEditingController();
+  List<TextEditingController> titleController = [];
   final _formkey = GlobalKey<FormState>();
-  List<String> itemList = [];
+  List<String> taskList = [];
+  int index = -1 ;
   List<DragAndDropList> _contents = [];
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _dragDropWidget();
+    titleController.add(TextEditingController());
+    index++;
+    _dragDropWidget(index);
 
   }
 
@@ -57,7 +60,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               Container(
                 child: Text(
-                  "${itemList.length} task queues",
+                  "${taskList.length} task queues",
                   style: Theme.of(context).textTheme.headline1.copyWith(
                         fontSize: 14,
                       ),
@@ -95,7 +98,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Container(
                 // height: MediaQuery.of(context).size.height *0.2,
-                color: Colors.orange,
+                // color: Colors.orange,
                 child: DragAndDropLists(
                   disableScrolling: true,
                   children: _contents,
@@ -137,7 +140,6 @@ class _HomePageState extends State<HomePage> {
 
   Widget _addButton(BuildContext context) {
     return Container(
-      // margin: EdgeInsets.only(top: 20),
       width: 140,
       height: 54,
       child: OutlinedButton(
@@ -147,14 +149,19 @@ class _HomePageState extends State<HomePage> {
         ),
         onPressed: () {
           setState(() {
-            _dragDropWidget();
+            titleController.add(TextEditingController());
+            index++;
+            _dragDropWidget(index);
           });
+          //
           // if (_formkey.currentState.validate()) {
           //   // BlocProvider.of<HomePageBloc>(context).add(
           //   //     AddButtonPressed(item: _taskTitleController.text)) ;
-          //   setState(() {
-          //     itemList.add(_taskTitleController.text);
-          //   });
+          //   // setState(() {
+          //   //   titleController.add(TextEditingController());
+          //   //   index++;
+          //   //   _dragDropWidget(index);
+          //   // });
           // }
         },
         child: Icon(
@@ -167,104 +174,144 @@ class _HomePageState extends State<HomePage> {
   }
 
 
-  void _dragDropWidget() {
+  void _dragDropWidget(int index) {
     _contents.add(DragAndDropList(
-      // header: Container(),
-      footer: Text("Oct,31 2021"),
+      rightSide: Container(
+        child: IconButton(onPressed: (){}, icon: Icon(Icons.delete),),
+      ),
+      footer: Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+              margin: EdgeInsets.only( left: 20.w, right: 30.w),
+              child: Text("Oct,31 2021",
+            style: TextStyle(
+              fontSize: 25.sp
+            ),)
+          ),
+          Divider(
+            thickness: 2,
+            color: Colors.grey,
+          )
+        ]
+      ),
       // contentsWhenEmpty: Container(),
       children: <DragAndDropItem>[
         DragAndDropItem(
-          child: InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SecondPage(),
-                ),
-              );
-            },
-            child: Container(
-              padding: EdgeInsets.only(top: 20.h , left: 20.w, right: 20.w),
-              child: Form(
-                child: Column(
-                  children: [
-                    TextFormField(
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                    // fillColor: Provider.of<ThemeProvider>(context).getTheme()
-                    //     ? darkTextFieldColor
-                    //     : backgroundColor,
-                    // prefixIcon: widget.icon,
-                    //     suffixIcon: ,
-                    suffix: GestureDetector(
-                      // onLongPress: Dra,
-                      child: Icon(Icons.menu),),
-                    fillColor: Colors.white,
-                    filled: true,
+          child: Container(
+            padding: EdgeInsets.only(top: 20.h , left: 20.w, right: 20.w),
+            child: Form(
 
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    // enabledBorder: OutlineInputBorder(
-                    //   borderSide: BorderSide(
-                    //     style: BorderStyle.solid,
-                    //     width: 1,
-                    //     color: Colors.transparent, //Color(0x7A5ADB5),
-                    //   ),
-                    //   borderRadius: BorderRadius.circular(6),
-                    // ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.blue[600],
-                      ),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 1, color: Colors.red),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    focusedErrorBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 1, color: Colors.red),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 20.0,
-                      vertical: 16.0,
-                    ),
-                    hintText: "Tap to enter task name",
-                    hintStyle: TextStyle(
-                      // color: Provider.of<ThemeProvider>(context).getTheme()
-                      //     ? Colors.grey
-                      //     : textColor,
-                      color: Color(0xFF475F7B),
-                      fontSize: 18.sp,
-                    ),
-                      ),
-                      style: TextStyle(
-                    fontSize: 18.sp,
-                      ),
-                      obscureText: false,
-                      controller: TextEditingController(),
-                      validator: (value) {
-                    if (FormValidator.validateName(value)) {
-                      return null;
-                    } else {
-                      return 'Please Enter the text';
-                    }
-                      },
+              child: Column(
+                children: [
+                  TextFormField(
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                  // fillColor: Provider.of<ThemeProvider>(context).getTheme()
+                  //     ? darkTextFieldColor
+                  //     : backgroundColor,
+                  // prefixIcon: widget.icon,
+                  //     suffixIcon: ,
+                  suffix: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SecondPage(
+                            titleName: titleController[index].text ,
+                            date: "Oct,31 2021",
+                          ),
+                        ),
+                      );
+                    },
+                    // onLongPress: Dra,
+                    child: Icon(Icons.menu),),
+                  fillColor: Colors.white,
+                  filled: true,
+
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(6),
                   ),
-                  // IconButton(
-                  //     onPressed: (){
-                  //       Navigator.push(
-                  //         context,
-                  //         MaterialPageRoute(
-                  //           builder: (context) => SecondPage(),
-                  //         ),
-                  //       );
-                  //     }, icon: Icon(Icons.menu)),
-                  ]
+                  // enabledBorder: OutlineInputBorder(
+                  //   borderSide: BorderSide(
+                  //     style: BorderStyle.solid,
+                  //     width: 1,
+                  //     color: Colors.transparent, //Color(0x7A5ADB5),
+                  //   ),
+                  //   borderRadius: BorderRadius.circular(6),
+                  // ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.blue[600],
+                    ),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 1, color: Colors.red),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 1, color: Colors.red),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 20.0,
+                    vertical: 16.0,
+                  ),
+                  hintText: "Tap to enter task name",
+                  hintStyle: TextStyle(
+                    // color: Provider.of<ThemeProvider>(context).getTheme()
+                    //     ? Colors.grey
+                    //     : textColor,
+                    color: Color(0xFF475F7B),
+                    fontSize: 18.sp,
+                  ),
+                    ),
+                    style: TextStyle(
+                  fontSize: 18.sp,
+                    ),
+                    obscureText: false,
+                    controller: titleController[index],
+                    validator: (value) {
+                  if (FormValidator.validateName(value)) {
+                    return null;
+                  } else {
+                    return 'Please Enter the text';
+                  }
+                    },
                 ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Stack(
+                  alignment: AlignmentDirectional.topEnd,
+                  children: [
+                    Divider(
+                      thickness: 1,
+                      color: Colors.blue,
+                    ),
+                    Container(
+                      height: 20,
+                      width: 20,
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(100)
+                      ),
+                    )
+                  ],
+                ),
+                // IconButton(
+                //     onPressed: (){
+                //       Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //           builder: (context) => SecondPage(),
+                //         ),
+                //       );
+                //     }, icon: Icon(Icons.menu)),
+                ]
               ),
             ),
           ),
@@ -274,40 +321,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // void onReorderListItem(
-  //     int oldItemIndex,
-  //     int oldListIndex,
-  //     int newItemIndex,
-  //     int newListIndex,
-  //     ) {
-  //   setState(() {
-  //     final oldListItems = _contents[oldListIndex].children;
-  //     final newListItems = _contents[newListIndex].children;
-  //
-  //     final movedItem = oldListItems.removeAt(oldItemIndex);
-  //     newListItems.insert(newItemIndex, movedItem);
-  //   });
-  // }
-
-  // DragAndDropList buildList(DraggableList list) => DragAndDropList(
-  //   header: Container(
-  //     padding: EdgeInsets.all(8),
-  //     child: Text(
-  //       "constant Text",
-  //       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-  //     ),
-  //   ),
-//   children: list.items
-//       .map((item) => DragAndDropItem(
-//     child: ListTile(
-//
-//       title: Text(item.title),
-//     ),
-//   )
-//   ).toList(),
-// );
-
-// Widget _buildListitem(BuildContext context) {
-//    return Draan
-// }
 }

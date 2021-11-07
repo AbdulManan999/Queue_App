@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:drag_and_drop_lists/drag_and_drop_item.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_list.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
@@ -8,7 +10,11 @@ import 'package:task_queues_app/app/theme.dart';
 import 'package:task_queues_app/common/util/form_validator.dart';
 
 class SecondPage extends StatefulWidget {
-  const SecondPage({Key key}) : super(key: key);
+
+  String titleName ;
+  String date;
+
+  SecondPage({Key key , @required this.titleName , @required this.date}) : super(key: key);
 
   @override
   _SecondPageState createState() => _SecondPageState();
@@ -115,8 +121,10 @@ class _SecondPageState extends State<SecondPage> {
                   //   ),
                   // ),
                   Divider(),
+
                   Row(
                     children: [
+
                       Expanded(
                         child: Container(
                           child: TextFormField(
@@ -263,6 +271,11 @@ class _SecondPageState extends State<SecondPage> {
                       ),
                     ],
                   ),
+
+                  Divider(
+                    thickness: 2,
+                    color: Colors.grey,
+                  )
                 ],
               ),
             ),
@@ -290,98 +303,86 @@ class _SecondPageState extends State<SecondPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            width: MediaQuery.of(context).size.width * 1,
-            color: Colors.white,
-            child: Column(
-              children: [
-                Row(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Text(
+          "All Task Queues",
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
+        actions: [
+          IconButton(onPressed: (){
+            _bottomSheet(context);
+          }, icon: Icon(Icons.menu)),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          width: MediaQuery.of(context).size.width * 1,
+          color: Colors.white,
+          child: Column(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                margin: EdgeInsets.only(top: 90, bottom: 40),
+                child: Column(
                   children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        child: Row(
-                          children: [
-                            Icon(Icons.arrow_back_ios_rounded),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            Text(
-                              "All Task Queues",
-                              style: TextStyle(
-                                fontSize: 18,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    Text(
+                      widget.titleName,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline1.copyWith(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 36,
+                          ),
+                    ),
+                    Text(
+                      widget.date ,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline1.copyWith(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18,
+                          ),
                     ),
                   ],
                 ),
-                Container(
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.only(top: 90, bottom: 40),
-                  child: Column(
-                    children: [
-                      Text(
-                        "Task Queues",
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline1.copyWith(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 36,
-                            ),
-                      ),
-                      Text(
-                        "29, Oct 2021",
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline1.copyWith(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 18,
-                            ),
-                      ),
-                    ],
-                  ),
-                ),
+              ),
 
-                Container(
-                  child: DragAndDropLists(
-                    disableScrolling: true,
-                    children: _contents,
-                    onItemReorder: _onItemReorder,
-                    onListReorder: _onListReorder,
-                  ),
+              Container(
+                child: DragAndDropLists(
+                  disableScrolling: true,
+                  children: _contents,
+                  onItemReorder: _onItemReorder,
+                  onListReorder: _onListReorder,
                 ),
-                // Container(
-                // child: DragAndDropLists(
-                //   // lastItemTargetHeight: 50,
-                //   // addLastItemTargetHeightToTop: true,
-                //   // lastListTargetSize: 30,
-                //   listPadding: EdgeInsets.all(16),
-                //   listInnerDecoration: BoxDecoration(
-                //     color: Theme.of(context).canvasColor,
-                //     borderRadius: BorderRadius.circular(10),
-                //   ),
-                //   children: _contents,
-                //   itemDivider: Divider(thickness: 2, height: 2, color: backgroundColor),
-                //   itemDecorationWhileDragging: BoxDecoration(
-                //     color: Colors.white,
-                //     boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4)],
-                //   ),
-                //   // itemDragHandle: buildDragHandle(),
-                //   onItemReorder: onReorderListItem,
-                //   // onListReorder: onReorderList,
-                // ),
-                // ),
-                _addButton(context),
-                SizedBox(
-                  height: 30.h,
-                ),
-              ],
-            ),
+              ),
+              // Container(
+              // child: DragAndDropLists(
+              //   // lastItemTargetHeight: 50,
+              //   // addLastItemTargetHeightToTop: true,
+              //   // lastListTargetSize: 30,
+              //   listPadding: EdgeInsets.all(16),
+              //   listInnerDecoration: BoxDecoration(
+              //     color: Theme.of(context).canvasColor,
+              //     borderRadius: BorderRadius.circular(10),
+              //   ),
+              //   children: _contents,
+              //   itemDivider: Divider(thickness: 2, height: 2, color: backgroundColor),
+              //   itemDecorationWhileDragging: BoxDecoration(
+              //     color: Colors.white,
+              //     boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 4)],
+              //   ),
+              //   // itemDragHandle: buildDragHandle(),
+              //   onItemReorder: onReorderListItem,
+              //   // onListReorder: onReorderList,
+              // ),
+              // ),
+              _addButton(context),
+              SizedBox(
+                height: 30.h,
+              ),
+            ],
           ),
         ),
       ),
@@ -712,4 +713,52 @@ class _SecondPageState extends State<SecondPage> {
 // Widget _buildListitem(BuildContext context) {
 //    return Draan
 // }
+
+void _bottomSheet(BuildContext context) {
+  if (Platform.isIOS) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => CupertinoActionSheet(
+        actions: [
+          CupertinoActionSheetAction(
+            child: Text("View all todo"),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          CupertinoActionSheetAction(
+            child: Text("View Incomplete todo"),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          )
+        ],
+      ),
+    );
+  } else {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => Wrap(children: [
+        ListTile(
+          leading: Icon(Icons.file_copy),
+          title: Text("View all todo"),
+          onTap: () {
+            Navigator.pop(context);
+
+          },
+        ),
+        ListTile(
+          leading: Icon(Icons.file_copy_outlined),
+          title: Text("View Incomplete todo"),
+          onTap: () {
+            Navigator.pop(context);
+          },
+        ),
+      ]),
+    );
+  }
+}
+
+
+
 }
